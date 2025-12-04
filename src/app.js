@@ -5,6 +5,7 @@ const morgan = require('morgan');
 
 // Import Routes
 const authRoutes = require('./api/routes/auth.routes');
+const targetRoutes = require('./api/routes/targets.routes');
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(morgan('dev'));  // Logging
 
 // Mount Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/targets', targetRoutes);
 
 // 404 Handler
 app.use((req, res) => {

@@ -5,6 +5,7 @@ require('dotenv').config();
 // ⬇️ IMPORT MODELS HERE TO ENSURE TABLES ARE CREATED ⬇️
 const User = require('./data-access/models/User');
 const TokenBlocklist = require('./data-access/models/TokenBlocklist');
+const TargetApp = require('./data-access/models/TargetApp');
 
 const PORT = process.env.PORT || 5000;
 
