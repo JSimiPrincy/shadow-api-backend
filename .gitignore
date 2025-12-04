@@ -1,0 +1,67 @@
+# ------------------------------------------------
+# Node.js & Dependencies
+# ------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json  # Optional: Remove this line if you want to lock dependency versions (Recommended to keep locked in teams)
+
+# ------------------------------------------------
+# Environment Variables (CRITICAL SECURITY)
+# ------------------------------------------------
+# Never commit these! They contain your DB passwords and JWT secrets.
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# ------------------------------------------------
+# Operating System Files
+# ------------------------------------------------
+.DS_Store          # macOS
+Thumbs.db          # Windows
+ehthumbs.db        # Windows
+Desktop.ini        # Windows
+
+# ------------------------------------------------
+# IDE & Editor Settings
+# ------------------------------------------------
+.idea/             # WebStorm / IntelliJ
+.vscode/           # VS Code (Optional: commit if sharing settings)
+*.swp              # Vim
+*.swo              # Vim
+
+# ------------------------------------------------
+# Testing & Coverage
+# ------------------------------------------------
+coverage/
+.nyc_output/
+
+# ------------------------------------------------
+# Puppeteer & Browser Automation
+# ------------------------------------------------
+# Puppeteer can download local versions of Chromium
+.local-chromium/
+.puppeteer/
+
+# ------------------------------------------------
+# Logs & Runtime
+# ------------------------------------------------
+logs/
+*.log
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# ------------------------------------------------
+# Project Specific Generated Files
+# ------------------------------------------------
+# If your app generates reports or stores temp downloads
+downloads/
+reports/
+temp/
+dist/
+build/
