@@ -6,6 +6,7 @@ require('dotenv').config();
 const User = require('./data-access/models/User');
 const TokenBlocklist = require('./data-access/models/TokenBlocklist');
 const TargetApp = require('./data-access/models/TargetApp');
+const ScanJob = require('./data-access/models/ScanJob');
 
 const PORT = process.env.PORT || 5000;
 
