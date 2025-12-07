@@ -8,6 +8,7 @@ const authRoutes = require('./api/routes/auth.routes');
 const targetRoutes = require('./api/routes/targets.routes');
 const scannerRoutes = require('./api/routes/scanner.routes');
 const shadowApiRoutes = require('./api/routes/shadowApi.routes');
+const exposureRoutes = require('./api/routes/exposure.routes');
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/targets', targetRoutes);
 app.use('/api/scanner', scannerRoutes);
 app.use('/api/shadow-apis', shadowApiRoutes);
+app.use('/api/exposures', exposureRoutes);
 
 // 404 Handler
 app.use((req, res) => {

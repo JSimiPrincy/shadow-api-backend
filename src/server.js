@@ -7,7 +7,10 @@ const User = require('./data-access/models/User');
 const TokenBlocklist = require('./data-access/models/TokenBlocklist');
 const TargetApp = require('./data-access/models/TargetApp');
 const ScanJob = require('./data-access/models/ScanJob');
+const SensitiveExposure = require('./data-access/models/SensitiveExposure');
 const DiscoveredEndpoint = require('./data-access/models/DiscoveredEndpoint');
+
+
 
 const PORT = process.env.PORT || 5000;
 
@@ -20,6 +23,8 @@ const startServer = async () => {
     // Sync models (Creates missing tables like TokenBlocklist)
     // alter: true updates tables if you changed columns
     await sequelize.sync({ alter: true }); 
+    DiscoveredEndpoint.hasMany(SensitiveExposure, { foreignKey: 'endpointId' });
+SensitiveExposure.belongsTo(DiscoveredEndpoint, { foreignKey: 'endpointId' });
     console.log('✅ Models synced (Tables created).');
 
     app.listen(PORT, () => {

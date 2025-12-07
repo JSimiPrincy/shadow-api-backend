@@ -46,10 +46,46 @@ const runScan = async (scanJobId, targetId) => {
 
     // Handle Response to get Status Code
     page.on('requestfinished', async (request) => {
-        const response = request.response();
-        if (response && ['xhr', 'fetch'].includes(request.resourceType())) {
-             // In a full production app, you'd update the record here with the status code
-             // For this demo, we captured the intent in the 'request' event.
+        const resourceType = request.resourceType();
+        
+        // Only analyze API-like responses
+        if (['xhr', 'fetch'].includes(resourceType)) {
+            try {
+                const response = request.response();
+                if (!response) return;
+
+                // 1. Get the URL to match with our DB record
+                const url = request.url();
+                const method = request.method();
+                const urlObj = new URL(url);
+                const path = urlObj.pathname;
+
+                // 2. Find the Endpoint ID (We just saved it in shadowApiService)
+                // Note: In high traffic, this lookup might need caching. 
+                const endpoint = await shadowApiService.registerEndpoint({
+                     targetId, method, url, resourceType, statusCode: response.status()
+                }); // Re-calling this ensures we have the ID
+
+                if (endpoint) {
+                    // 3. Capture Body
+                    let body = '';
+                    try {
+                        // Buffer -> String
+                        body = await response.text(); 
+                    } catch (e) {
+                        // Sometimes response body is not available (redirects, etc)
+                    }
+
+                    // 4. Send to Exposure Service
+                    if (body) {
+                        exposureService.analyzePayload(endpoint.id, body)
+                            .catch(err => console.error("Exposure Analysis Error", err.message));
+                    }
+                }
+
+            } catch (error) {
+                console.error("Error processing response body:", error.message);
+            }
         }
     });
 
