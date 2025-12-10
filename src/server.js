@@ -9,6 +9,7 @@ const TargetApp = require('./data-access/models/TargetApp');
 const ScanJob = require('./data-access/models/ScanJob');
 const SensitiveExposure = require('./data-access/models/SensitiveExposure');
 const DiscoveredEndpoint = require('./data-access/models/DiscoveredEndpoint');
+const RiskScore = require('./data-access/models/RiskScore');
 
 
 
@@ -25,6 +26,8 @@ const startServer = async () => {
     await sequelize.sync({ alter: true }); 
     DiscoveredEndpoint.hasMany(SensitiveExposure, { foreignKey: 'endpointId' });
 SensitiveExposure.belongsTo(DiscoveredEndpoint, { foreignKey: 'endpointId' });
+DiscoveredEndpoint.hasOne(RiskScore, { foreignKey: 'endpointId' });
+RiskScore.belongsTo(DiscoveredEndpoint, { foreignKey: 'endpointId' });
     console.log('✅ Models synced (Tables created).');
 
     app.listen(PORT, () => {
